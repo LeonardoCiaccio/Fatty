@@ -1,0 +1,2637 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+
+		<!-- Standard Meta -->
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+		<!-- Site Properties -->
+		<title>Fatty | PRO</title>
+		<link rel="icon" href="imgs/favicon.png" type="image/png" />		
+
+
+		<!-- Standard and Custom Styles -->
+		<link rel="stylesheet" type="text/css" href="css/semantic.min.css">
+
+		<style>
+
+			body{ /* <-- Formato di stampa height:297mm; width:210mm */
+
+				height:290mm!important;
+				width:210mm!important;
+				margin-left: auto!important;
+				margin-right: auto!important;
+				background:rgb(198, 215, 228)!important;
+				overflow: auto!important;
+			}
+
+			.spotted{			
+
+				margin-top: 20px!important;
+				margin-bottom: 20px!important;
+
+			}
+
+			.bordered{
+
+				border: 1px solid rgb(246, 246, 247)!important;
+
+			}
+
+			.shadowed{
+
+				box-shadow: 0px 0px 9px 0px rgb(0, 0, 0)!important;
+
+			}
+
+			.main.container{
+
+				width: 100%;
+				height: 100%;
+				padding: 20px;
+				border: 1px solid transparent;
+				background:white;
+				padding-left: 30px;
+				padding-right: 30px;
+			}
+
+			.intesta p{
+
+				margin: 0px;
+
+			}
+
+			.row.fattura{
+
+				padding: 40px;
+
+			}
+
+			.row.fattura h1{
+
+				font-size: 40px;
+				color: rgb(109, 144, 175)!important;
+
+			}
+
+			.row.lista{
+
+				height: 500px;
+
+			}
+
+			.row.lista table{
+
+				border: none;
+
+			}
+
+			.row.lista table > thead > tr > th{
+
+				background: white;
+
+			}
+
+			.row.lista table > tbody > tr > td{
+
+				border: none;
+
+			}
+
+			.dropdown.pagamento{
+
+				width: 100%!important;
+				border: none!important;
+
+			}
+
+			.row.footer p{
+
+				margin-left: 10px!important;
+
+			}
+
+			[contenteditable],
+			.clickable{
+
+				cursor: pointer!important;
+
+			}
+
+			[data-tooltip]::after{
+
+				z-index: 999999999999999!important;
+
+			}
+
+			[data-group='COD'][data-item='unique']:hover{
+
+				background: red;
+				cursor: pointer!important;
+
+			}
+
+			table.COD tr:hover{
+
+				background-color: rgb(206, 206, 206);
+				color: white;
+			
+			}
+
+			.selected{
+
+				background-color: rgba(220, 220, 220, 0.36);
+				color: black;
+			
+			}
+
+			th{
+
+				border-bottom: 1px solid rgb(218, 218, 218)!important;
+
+			}
+
+			[data-fattura-item='creata']{
+
+				font-weight: bolder!important;
+				color: rgb(109, 144, 175)!important;
+
+			}
+
+			.tohide.forced,
+			.tohide.this{
+
+				display: none!important;
+
+			}
+
+			.absolute{
+
+				position: absolute;
+			}
+
+			.top{
+
+				top: 5px;
+
+			}
+
+			.absolute.top.COD{
+
+				top: 0px;
+
+			}
+
+			.absolute.top.PAGAMENTI{
+
+				top: 0px;
+
+			}
+
+			.absolute.top.TASSE{
+
+				top: 33px;
+				left: 18px;
+
+			}
+
+			.absolute.FATTURE{
+
+				bottom: 23px;
+				left: -25px;
+
+			}
+
+			.bottom{
+
+				bottom: -5px;
+
+			}
+
+			.popup{
+
+				min-width:550px!important;
+
+			}
+
+			.popup.AZIENDE{
+
+				min-width:500px!important;
+
+			}
+
+			.buttons.AZIENDE{
+
+				left: 0px!important;
+
+			}
+
+			.buttons.CLIENTI{
+
+				right: 0px!important;
+
+			}
+
+			.ui.basic.buttons .button.sbutton:hover,
+			.ui.basic.buttons .button.sbutton:active,
+			.sbutton{
+
+				background: none!important;
+				border: none!important;
+
+			}
+
+		</style>
+
+	</head>
+	<body>
+
+		<div id="MAIN" class="main container transition hidden">
+
+			<div class="ui grid">
+
+				<div class="sixteen wide column">
+
+					<div class="row top">
+
+						<div class="ui three column grid">
+
+							<div class="column left aligned">
+
+								<em>Emittente</em>
+
+							</div>
+
+							<div class="column center aligned">
+
+								<div class="ui normal basic icon buttons tohide this absolute top centerthisleft">
+									  
+									  <button id="FATTURE" data-value="-2" data-fattura-idsign="-3" data-group="FATTURE" data-module="showme" class="ui button"><i class="settings icon"></i></button>
+
+
+									  <button data-group="GLOBAL" data-module="import" class="ui button" data-tooltip="Importa un backup" data-inverted="" data-position="bottom center"><i class="upload icon"></i></button>
+
+									  <button data-group="GLOBAL" data-module="export" class="ui button" data-tooltip="Backup completo" data-inverted="" data-position="bottom center"><i class="download icon"></i></button>
+
+									  <button data-group="GLOBAL" data-module="print" class="ui button" data-tooltip="Stampa la fattura" data-inverted="" data-position="bottom center"><i class="blue print icon"></i>
+									  </button>
+
+									  <button data-group="GLOBAL" data-module="github" class="ui button" data-tooltip="FATTY è open source !" data-inverted="" data-position="bottom center"><i class="github alternate icon"></i></button>
+
+									  <button data-group="GLOBAL" data-module="donate" class="ui button" data-tooltip="Ti piace ? perché non fai una donazione ?" data-inverted="" data-position="bottom center"><i class="red heart icon"></i></button>
+									  <button data-group="GLOBAL" data-module="youtube" class="ui button" data-tooltip="Guarda un piccolo video tutorial" data-inverted="" data-position="bottom center"><i class="red youtube play icon"></i></button>
+
+								</div>
+
+							</div>
+
+							<div class="column right aligned">
+
+								<em>Cliente</em>
+
+							</div>
+
+						</div>
+
+					</div>
+
+					<div class="row intesta">
+						
+						<div class="ui grid padded">
+
+							<div class="six wide column">
+
+								<h2 class="ui header">
+
+									<div data-group="AZIENDE" data-item="title" data-fattura-item="a-title" class="content" contenteditable="true">
+
+									</div>
+
+								</h2>
+								<p data-group="AZIENDE" data-item="indirizzo" data-fattura-item="a-indirizzo" contenteditable="true"></p>
+								<p data-group="AZIENDE" data-item="piva" data-fattura-item="a-piva" contenteditable="true"></p>
+								<p data-group="AZIENDE" data-item="email" data-fattura-item="a-email" contenteditable="true"></p>	
+								<p data-group="AZIENDE" data-item="telefono" data-fattura-item="a-telefono" contenteditable="true"></p>
+
+								<div class="ui normal basic sbutton icon buttons tohide this absolute bottom centerthisbottom  AZIENDE">
+
+									  <button id="AZIENDE" data-value="-2" data-group="AZIENDE" data-module="showme" class="ui button sbutton"><i class="settings icon"></i></button>
+
+								</div>
+
+							</div>
+
+							<div class="ui flowing popup top left transition hidden AZIENDE">
+
+								<div class="ui divided left aligned grid">
+
+									<div class="seven wide column">
+
+										<div class="ui fluid category search AZIENDE">
+
+											<div class="ui icon input" style="width:100%" data-tooltip="Cerca tra le aziende" data-inverted="">
+
+												<input data-group="AZIENDE" data-module="cerca" class="prompt" type="text" placeholder="Cerca">
+												<i class="search icon"></i>
+
+											</div>
+
+											<div class="results"></div>
+
+										</div>
+
+									</div>
+									<div class="seven wide column">
+
+										<div class="ui input" style="width:100%" data-tooltip="Aggiungi una nuova azienda" data-inverted="">
+											<input data-group="AZIENDE" data-module="aggiungi" type="text" placeholder="+ Aggiungi">
+										</div>
+
+									</div>
+									<div class="two wide column center aligned">
+
+										<div class="ui small basic icon buttons">
+										  
+										  <button data-group="AZIENDE" data-module="rimuovi" class="ui button" data-tooltip="Elimina questa azienda" data-inverted=""><i class="red remove icon"></i></button>
+										  
+										  <!-- Non posso importare le aziende senza le fatture collegate, obbligo a fare un backup totale se necessario e/o se si vogliono esportare le aziende -->
+
+										  <!-- <button data-group="AZIENDE" data-module="import" class="ui button" data-tooltip="Importa una tabella di aziende" data-inverted=""><i class="upload icon"></i></button>
+									  	  <button data-group="AZIENDE" data-module="export" class="ui button" data-tooltip="Esporta questa tabella aziende" data-inverted=""><i class="download icon"></i></button> -->
+
+										</div>
+
+									</div>
+
+								</div>
+
+							</div>
+
+							<div class="four wide column AZIENDE center aligned" data-tooltip="Cambia il logo di questa azienda" data-inverted="" data-position="bottom center">
+
+								<img class="clickable" data-group="AZIENDE" data-img="logo" data-fattura-img="logo" width="128px" height="128px" src="">
+
+							</div>
+
+							<div class="six wide column right aligned">
+
+								<h2 class="ui header">
+
+									<div data-group="CLIENTI" data-item="title" data-fattura-item="c-title" class="content" contenteditable="true">
+										
+									</div>
+
+								</h2>
+								<p data-group="CLIENTI" data-item="indirizzo" data-fattura-item="c-indirizzo" contenteditable="true">Indirizzo</p>
+								<p data-group="CLIENTI" data-item="piva" data-fattura-item="c-piva" contenteditable="true">P.IVA</p>
+								<p data-group="CLIENTI" data-item="email" data-fattura-item="c-email" contenteditable="true">Email</p>	
+								<p data-group="CLIENTI" data-item="telefono" data-fattura-item="c-telefono" contenteditable="true">Telefono</p>
+
+								<div class="ui normal basic sbutton icon buttons tohide this absolute bottom centerthisbottom CLIENTI">
+
+									  <button id="CLIENTI" data-value="-2" data-group="CLIENTI" data-module="showme" class="ui button sbutton"><i class="settings icon"></i></button>
+
+								</div>
+
+							</div>
+
+							<div class="ui flowing popup top left transition hidden CLIENTI">
+								<div class="ui divided left aligned grid">
+									<div class="six wide column">
+
+										<div class="ui fluid category search CLIENTI">
+											<div class="ui icon input" style="width:100%" data-tooltip="Cerca tra i clienti" data-inverted="">
+												<input  data-group="CLIENTI" data-module="cerca" class="prompt" type="text" placeholder="Cerca">
+												<i class="search icon"></i>
+											</div>
+											<div class="results"></div>
+										</div>
+
+									</div>
+									<div class="six wide column">
+
+										<div class="ui input" style="width:100%" data-tooltip="Aggiungi un nuovo cliente" data-inverted="">
+											<input data-group="CLIENTI" data-module="aggiungi" type="text" placeholder="+ Aggiungi">
+										</div>
+
+									</div>
+									<div class="four wide column center aligned">
+
+										<div class="ui small basic icon buttons">
+										  
+										  <button data-group="CLIENTI" data-module="rimuovi" class="ui button" data-tooltip="Elimina questo cliente" data-inverted=""><i class="red remove icon"></i></button>
+										  <button data-group="CLIENTI" data-module="import" class="ui button" data-tooltip="Importa una tabella di clienti" data-inverted=""><i class="upload icon"></i></button>
+									  	  <button data-group="CLIENTI" data-module="export" class="ui button" data-tooltip="Esporta questa tabella di clienti" data-inverted=""><i class="download icon"></i></button>
+										  
+										</div>
+
+									</div>
+								</div>
+							</div>
+
+						</div>
+
+					</div>
+
+					<div class="row fattura">
+
+						<div class="ui grid">
+
+							<div class="sixteen wide column">
+
+								
+
+								<h1 class="ui header centered">																		
+									<div data-group="FATTURE" data-item="title" data-fattura-item="title" class="content" contenteditable="true" data-content="Puoi editare questi dati ma se deciderai di salvare la fattura questi verranno modificati con il numero progressivo e la data di oggi, di solito questi campi vengono editati per stampare fatture senza salvarle, ottimo se il tuo browser non permette di salvare grandi quantitativi di dati." data-variation="inverted" data-variation="wide">
+										
+									</div>																		
+									<div data-fattura-item="creata" class="sub header content" contenteditable="true">
+										
+									</div>
+								</h1>
+
+							</div>
+
+						</div>
+
+						<div class="ui flowing popup top left transition hidden FATTURE">
+							<div class="ui divided left aligned grid">
+								<div class="twelve wide column">
+
+									<div class="ui fluid category search FATTURE">
+										<div class="ui icon input" style="width:100%" data-tooltip="Cerca tra le fatture, ma prima seleziona un'azienda emittente, ogni azienda le sue fatture !" data-inverted="">
+											<input data-group="FATTURE" data-module="cerca" class="prompt" type="text" placeholder="Cerca">
+											<i class="search icon"></i>
+										</div>
+										<div class="results"></div>
+									</div>
+
+								</div>
+								<div class="four wide column center aligned">
+
+									<div class="ui small basic icon buttons">
+									  <button data-group="FATTURE" data-module="plus" class="ui button" data-tooltip="Salva questa fattura" data-inverted=""><i class="green checkmark icon"></i></button>
+									  <button data-group="FATTURE" data-module="rimuovi" class="ui button" data-tooltip="Elimina questa fattura" data-inverted=""><i class="red remove icon"></i></button>
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+					<div class="row lista">
+
+						<div class="ui grid">
+
+							<div class="sixteen wide column">
+
+								<div class="ui normal basic sbutton icon buttons tohide this absolute top COD">
+
+									<button id="COD" data-value="-2" data-group="COD" data-module="showme" class="ui button sbutton"><i class="settings icon"></i></button>
+
+								</div>
+
+								<table class="ui table COD unstackable">									
+
+									<thead>
+										<tr><th>COD</th>
+											<th>QT</th>
+											<th>DESCRIZIONE</th>
+											<th>€</th>											
+											<th>Totale</th>
+										</tr></thead>
+									<tbody id="CODLIST" data-list="COD">
+									</tbody>
+								</table>
+
+
+								<div class="ui flowing popup top left transition hidden COD">
+									<div class="ui divided left aligned grid">
+										<div class="six wide column">
+
+											<div class="ui fluid category search COD">
+												<div class="ui icon input" style="width:100%" data-tooltip="Cerca tra i codici" data-inverted="">
+													<input data-group="COD" data-module="cerca" class="prompt" type="text" placeholder="Cerca">
+													<i class="search icon"></i>
+												</div>
+												<div class="results"></div>
+											</div>
+
+										</div>
+										<div class="six wide column">
+
+											<div class="ui input" style="width:100%" data-tooltip="Aggiungi un nuovo codice" data-inverted="">
+												<input data-group="COD" data-module="aggiungi" type="text" placeholder="+ Aggiungi">
+											</div>
+
+										</div>
+										<div class="four wide column center aligned">
+
+											<div class="ui small basic icon buttons">
+											  
+											  <button data-group="COD" data-module="rimuovi" class="ui button" data-tooltip="Elimina i codici selezionati" data-inverted=""><i class="red remove icon"></i></button>
+										  		<button data-group="COD" data-module="import" class="ui button" data-tooltip="Importa una tabella di cod" data-inverted=""><i class="upload icon"></i></button>
+									  	  		<button data-group="COD" data-module="export" class="ui button" data-tooltip="Esporta questa tabella di cod" data-inverted=""><i class="download icon"></i></button>
+											  
+											</div>
+
+										</div>
+									</div>
+								</div>
+
+							</div>
+
+						</div>
+
+					</div>
+
+					<div class="row footer">
+
+						<div class="ui grid">
+
+							<div class="ten wide column">
+
+								<div class="ui normal basic sbutton icon buttons tohide this absolute top PAGAMENTI">
+
+									<button id="PAGAMENTI" data-value="-2" data-group="PAGAMENTI" data-module="showme" class="ui button sbutton"><i class="settings icon"></i></button>
+
+								</div>
+
+								<h3 class="ui header">
+
+									<div class="content">
+										CONDIZIONI DI PAGAMENTO
+									</div>
+
+								</h3>
+
+								<p data-group="PAGAMENTI" data-item="title" data-fattura-item="pagamenti" contenteditable="true"></p>
+
+								<h3 class="ui header">
+
+									<div class="content">
+										NOTE
+									</div>
+
+								</h3>
+
+								<p id="note" contenteditable="true" data-fattura-item="note">Scade il : _ _/_ _/_ _ _ _</p>
+
+							</div>
+
+								<div class="ui flowing popup top left transition hidden PAGAMENTI">
+
+									<div class="ui divided left aligned grid">
+
+										<div class="six wide column">
+
+											<div class="ui fluid category search PAGAMENTI">
+
+												<div class="ui icon input" style="width:100%" data-tooltip="Cerca tra i tipi di pagamenti" data-inverted="">
+
+													<input data-group="PAGAMENTI" data-module="cerca" class="prompt" type="text" placeholder="Cerca">
+													<i class="search icon"></i>
+
+												</div>
+
+												<div class="results"></div>
+
+											</div>
+
+										</div>
+										<div class="six wide column">
+
+											<div class="ui input" style="width:100%" data-tooltip="Aggiungi un nuovo tipo di pagamento" data-inverted="">
+												<input data-group="PAGAMENTI" data-module="aggiungi" type="text" placeholder="+ Aggiungi">
+											</div>
+
+										</div>
+										<div class="four wide column center aligned">
+
+											<div class="ui small basic icon buttons">
+											  
+											  <button data-group="PAGAMENTI" data-module="rimuovi" class="ui button" data-tooltip="Elimina questo tipo di pagamento" data-inverted=""><i class="red remove icon"></i></button>
+										  <button data-group="PAGAMENTI" data-module="import" class="ui button" data-tooltip="Importa una tabella di pagamenti" data-inverted=""><i class="upload icon"></i></button>
+									  	  <button data-group="PAGAMENTI" data-module="export" class="ui button" data-tooltip="Esporta questa tabella di pagamenti" data-inverted=""><i class="download icon"></i></button>
+											  
+											</div>
+
+										</div>
+
+									</div>
+
+								</div>
+
+
+							<div class="six wide column">
+
+								<div class="ui normal basic sbutton icon buttons tohide this absolute top TASSE">
+
+									<button id="TASSE" data-value="-2" data-group="TASSE" data-module="showme" class="ui button sbutton"><i class="settings icon"></i></button>
+
+								</div>
+
+								<table class="ui table right aligned unstackable">
+									<thead>
+										<tr><th></th>
+											<th>Totale €</th>
+										</tr></thead>
+									<tbody>
+										<tr class="top aligned">
+											<td>Imponibile</td>
+											<td data-ref="imponibile" data-fattura-item="imponibile">€</td>
+										</tr>
+										<tr class="top aligned">
+											<td data-group="TASSE" data-item="title" data-fattura-item="tasse" contenteditable="true"></td>
+											<td data-ref="tax" data-fattura-item="v-tasse">€</td>
+										</tr>
+										<tr class="top aligned">
+											<td></td>
+											<td data-ref="subtotale" data-fattura-item="subtotale">€</td>
+										</tr>
+									</tbody>
+								</table>
+
+							</div>
+
+							<div class="ui flowing popup top left transition hidden TASSE">
+
+									<div class="ui divided left aligned grid">
+
+										<div class="six wide column">
+
+											<div class="ui fluid category search TASSE">
+
+												<div class="ui icon input" style="width:100%" data-tooltip="Cerca tra i tipi di tasse" data-inverted="">
+
+													<input data-group="TASSE" data-module="cerca" class="prompt" type="text" placeholder="Cerca">
+													<i class="search icon"></i>
+
+												</div>
+
+												<div class="results"></div>
+
+											</div>
+
+										</div>
+										<div class="six wide column">
+
+											<div class="ui input" style="width:100%" data-tooltip="Aggiungi un nuovo tipo di tassa" data-inverted="">
+												<input data-group="TASSE" data-module="aggiungi" type="text" placeholder="+ Aggiungi">
+											</div>
+
+										</div>
+										<div class="four wide column center aligned">
+
+											<div class="ui small basic icon buttons">
+											  
+											  <button data-group="TASSE" data-module="rimuovi" class="ui button" data-tooltip="Elimina questo tipo di tassa" data-inverted=""><i class="red remove icon"></i></button>
+										  <button data-group="TASSE" data-module="import" class="ui button" data-tooltip="Importa una tabella di tasse" data-inverted=""><i class="upload icon"></i></button>
+									  	  <button data-group="TASSE" data-module="export" class="ui button" data-tooltip="Esporta questa tabella di tasse" data-inverted=""><i class="download icon"></i></button>
+											  
+											</div>
+
+										</div>
+
+									</div>
+
+								</div>
+
+						</div>
+
+					</div>				
+
+				</div>
+
+			</div>
+
+		</div>
+
+		<input id="import" type="file" accept=".json" hidden>
+
+		<!-- Standard and Custom Scripts -->
+		<script src="js/jquery.min.js"></script>
+		<script src="js/semantic.min.js"></script>
+		<script src="js/filesaver.min.js"></script>
+		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/lie/3.1.1/lie.min.js"></script> localdb.min.js contiene lie.js -->
+		<script src="js/localdb.min.js?v8.2"></script>
+		<!-- <script src="file:///C:/Users/Leonardo/Documents/GitHub/LocalDB/localdb.min.js?v8.5"></script> -->
+
+		<script data-description="controlli browser">
+
+			/*
+
+				README :
+
+				Questa versione salva tutti i dati nel localstorage, poiché il limite è di 5MB non conviene utilizzarlo per salvare
+				dati inutili.
+
+				Quando ci saranno progressi con lo storage o altre soluzioni allora conviene riprendere questo progetto.
+
+			*/
+
+			if( !window.jQuery )throw new Error( "Fatty require 'jQuery'" );
+			if( !window.localdb )throw new Error( "Fatty require 'localdb.js'" );
+			if( !window.Promise )throw new Error( "Fatty require 'lie.js' ( Promise )" );
+
+			try{
+
+			// --> Test di compatibilità, da rifinire
+
+				var contentEditableSupport = "contentEditable" in document.documentElement;
+
+				if( !contentEditableSupport )throw new Error( "..." );
+
+				if( !Array.prototype.findIndex )throw new Error( "..." );
+
+				if( !Array.isArray )throw new Error( "..." );
+
+				if( !MutationObserver )throw new Error( "..." );
+
+				if( !( "localStorage" in window && window[ "localStorage" ] !== null ) )throw new Error( "..." );
+
+			// --> LocalDB check
+
+				if( !Object.keys )throw new Error( "..." );
+
+			}catch( e ){
+
+				alert( "Questo Browser non supporta 'FATTY', ti consiglio di utilizzare l'ultima versione di 'Firefox'" );
+
+				window.close();
+
+			}
+
+			try {
+
+				var isFileSaverSupported = !!new Blob;
+
+			} catch( e ){
+
+				alert( "Questo browser non può esportare/importare elementi del database, ti consiglio di lavorare con l'ultima versione di 'Firefox'" );
+
+			}		
+
+		</script>
+
+		<script data-description="gestione della console">
+
+			( function( $, P, DB ){
+
+				"use strict";
+
+				var THISDBNAME = "FATTY";
+
+				try{
+
+					var q = location.search;
+
+					q = "{\"" + 
+				         q
+				         .replace( /\?/gi, "" )
+				         .replace( /\&/gi, "\",\"" )
+				         .replace( /\=/gi, "\":\"" ) +
+				         "\"}";
+					  
+					q = JSON.parse( q );
+
+				// --> Dinamicamente creo un db
+
+					var tmp = q[ "db" ].trim();
+
+					if( tmp && tmp != "" )THISDBNAME = tmp.toString();
+
+				}catch( e ){}
+
+		/// --> Variabili e accessori globali
+
+				var
+
+				donate   = "https://www.paypal.me/LeonardoCiaccio"
+
+				,github  = "https://github.com/LeonardoCiaccio/Fatty"
+
+				,youtube = "http://www.youtube.com"
+
+				,debug = true
+
+				,lol = function( mex ){
+
+					if( debug )console.log( mex );
+
+				}
+				
+				,at = function( test ){
+
+					try{
+
+						if( typeof test === "function" )return test();
+
+						return test || null;
+
+					}catch( e ){
+
+						return null;
+
+					}
+
+				}
+				
+				,escapeHTML = function( text ){
+					
+					var entityMap = {
+										
+						 '&': '&amp;'
+						,'<': '&lt;'
+						,'>': '&gt;'
+						,'"': '&quot;'
+						,"'": '&#39;'
+						,'/': '&#x2F;'
+						,'`': '&#x60;'
+						,'=': '&#x3D;'
+						
+					};
+
+					return String( text ).replace( /[&<>"'`=\/]/g, function( s ){
+					
+						return entityMap[ s ];
+					
+					} );
+					
+				}
+
+			// --> Passo sempre una copia, evito confusioni
+
+				,DEFAULTS = {
+
+					"AZIENDE" : {
+
+						"#" : -1
+						
+						,
+						
+						"title"		: "La tua azienda"
+
+						,
+
+						"indirizzo" : "Indirizzo e località"
+
+						,
+
+						"piva" : "P.IVA" 
+
+						,
+
+						"email" : "Email" 
+
+						,
+
+						"telefono" : "Telefono"
+
+						,
+
+						"imgs" : [
+							
+							{							
+						
+								"logo" : "imgs/logo.png"
+								
+							}
+						
+						]
+
+					}
+
+					,
+
+					"CLIENTI" : {
+
+						"#" : -1
+						
+						,
+						
+						"title"		: "Il tuo cliente"
+
+						,
+
+						"indirizzo" : "Indirizzo e località"
+
+						,
+
+						"piva" : "P.IVA" 
+
+						,
+
+						"email" : "Email" 
+
+						,
+
+						"telefono" : "Telefono"
+
+						,
+
+						"imgs" : []
+
+					}
+
+					,
+
+					"PAGAMENTI" : {
+
+						"#" : -1
+						
+						,
+						
+						"title"		: "Contanti"
+
+						,
+
+						"imgs" : []
+
+					}
+
+					,
+
+					"TASSE" : {
+
+						"#" : -1
+						
+						,
+						
+						"title"		: "IVA ( 22% )"
+
+						,
+
+						"imgs" : []
+
+					}
+
+					,
+
+					"COD" : {
+
+						"#" : -1
+						
+						,
+						
+						"title"		: ""
+						
+						,
+						
+						"descrizione" : ""
+						
+						,
+						
+						"prezzo" : 0
+
+						,
+
+						"unique" : ""
+
+						,
+
+						"imgs" : []
+
+					}
+
+					,
+
+					"FATTURE" : {
+
+						"#" : -1
+						
+						,
+						
+						"title"		: "Fattura ..."
+
+						,
+
+						"COD" 	: []
+						,
+
+						"NOTE" : "Scade il : _ _/_ _/_ _ _ _"
+
+						,
+
+						"imgs" : []
+
+					}
+
+				}
+
+				,GROUPS = [
+					
+					"AZIENDE"
+					
+					,
+
+					"CLIENTI"
+					
+					,
+
+					"PAGAMENTI"
+					
+					,
+
+					"TASSE"
+					
+					,
+
+					"COD"
+					
+					,
+
+					"FATTURE"
+					
+				]
+
+				,POSITION = {
+
+					"AZIENDE" : "bottom left"
+
+					,
+
+					"CLIENTI" : "bottom right"
+
+					,
+
+					"PAGAMENTI" : "top left"
+
+					,
+
+					"TASSE" : "top center"
+
+					,
+
+					"COD" : "top left"
+
+					,
+
+					"FATTURE" : "bottom center"
+
+				}
+
+				,cntrlIsPressed = false
+
+				,TIMEOUTEDIT = 500
+
+				,TIMEOUTLEAVE = 100
+
+				,TIMEOUTSPOT = 15 * 1000
+
+				,THREADS = {}
+				
+				,F = new DB( {
+
+					name   : THISDBNAME
+
+					,
+
+					change : function( tablename, recordschanged, eventname, mytableobj ){
+
+						lol( F.name + "' [" + tablename + "] modificato '" + eventname + "' !" );
+						
+						updateSearch( tablename, mytableobj );
+
+						lol( "Aggiornata la ricerca per [" + tablename + "]" );
+						
+					}
+
+				} );
+
+				lol( THISDBNAME );
+
+			// --> Cifro comunque il db, sono dati sensibili, se voglio modificarlo uso il sorgente
+
+				F.password = "*";				
+				
+		/// --> Funzioni, macro e shortcut
+		
+				$( document ).keydown( function( event ){
+					
+					if( event.which == "17" )cntrlIsPressed = true;
+				
+				} );
+
+				$( document ).keyup( function(){
+					
+					cntrlIsPressed = false;
+				
+				} );
+
+				$( "#MAIN" )
+
+				.on( "mouseover", function( event ){
+
+					$( ".tohide" ).removeClass( "this" );
+
+					event.stopPropagation();
+
+				} )
+
+				.on( "mouseleave", function( event ){
+
+					if( $( event.target ).attr( "id" ) != "MAIN" ){
+
+						lol( "Sarebbe stato un mouseleave !" );
+
+						return false;
+
+					}
+
+					at( clearTimeout( THREADS[ "mouseleave" ] ) );
+
+					THREADS[ "mouseleave" ] = setTimeout( function(){
+
+						$("[ContentEditable]").blur();
+						
+						window.getSelection().removeAllRanges();
+
+						$( ".popup" ).popup( "hide all" );
+
+						if( !$( ".tohide" ).hasClass( "this" ) )$( ".tohide" ).addClass( "this" );
+
+						$( ".tohide" ).removeClass( "forced" );
+
+						lol( "main : mouseleave" );
+
+					}, TIMEOUTLEAVE );
+
+					event.stopPropagation();
+
+				} );
+
+			// --> Da stringa a numero positivo intero
+
+				var toInt = function( text ){
+
+					return parseInt( text.toString().replace( /[^0-9]/g, "" ) ) || 0;
+
+				};
+
+			// --> Da stringa a numero positivo float
+
+				var toFloat = function( text ){
+
+					return parseFloat( text.toString().replace( /[^\.0-9]/g, "" ) ) || 0;
+
+				};
+
+			// --> Arrotonda un numero float a 2 numeri decimali
+
+				var round = function( float ){
+
+					return toFloat( toFloat( float ).toFixed( 2 ) ); //( Math.round( float * 100) / 100 ) || float;
+
+				};
+
+			// --> Aggiorno il subtotale
+
+				var subtotale = function(){
+
+					var $allmytotale = $( "[data-group='COD'][data-ref='totale']" )
+
+					,$imponibile = $( "[data-ref='imponibile']" ).first()
+
+					,$tasse 	 = $( "[data-group='TASSE'][data-item='title']" ).first()
+
+					,$tax		 = $( "[data-ref='tax']" ).first()
+
+					,$subtotale  = $( "[data-ref='subtotale']" ).first()
+
+					,tasse 		 = toFloat( $tasse.text() )
+
+					,imponibile  = 0
+
+					;
+
+				// --> Somma totale
+
+					$.each( $allmytotale, function( i, totale ){
+
+						imponibile+= toFloat( $( totale ).text() );
+
+					} );
+
+					imponibile = round( imponibile );
+
+					$imponibile.text( imponibile );
+
+				// --> Le tasse
+
+					var tax = round( ( imponibile / 100 ) * tasse );
+
+					$tax.text( tax );
+
+				//--> Subtotale
+
+					$subtotale.text( round( imponibile + tax ) );
+
+					lol( "Subtotale aggiornato" );
+
+				};
+
+			// --> 
+
+				var totalCOD = function( id ){
+
+					if( isNaN( id ) || id < 0 )return false;
+
+					var $myqt  = $( "[data-group='COD'][data-ref='qt'][data-id='" + id + "']" ).first()
+
+						,$myprezzo   = $( "[data-group='COD'][data-ref='prezzo'][data-id='" + id + "']" ).first()
+
+						,$mytotale = $( "[data-group='COD'][data-ref='totale'][data-id='" + id + "']" ).first()
+
+						,myqt = toFloat( $myqt.text() )
+
+						,myprezzo = toFloat( $myprezzo.text() )
+
+						;
+						
+						at( function(){ $mytotale.text( round( myqt * myprezzo ) ); } );
+				
+				};
+
+			// --> Carico le fatture per l'azienda in uso
+
+				var loadMyFatture = function( id ){
+
+					if( !( id > -1 ) )return false;
+
+					var tablename  = "FATTURE" + id
+
+						,thistable = F.getTable( tablename );
+
+					updateSearch( "FATTURE", thistable );
+
+				};
+
+			// --> Aggiorna un determinato array di oggetti
+				
+				var updateSearch = function( group, source ){
+					
+					$( "." + group + ".search" ).search( {
+
+						error : {
+
+							noResults   : "Nessun risultato"
+
+						}
+						
+						,
+						
+						cache : false
+
+						,
+
+						source : source
+
+						,				
+						
+						searchFields   : [
+
+							"title"
+
+							,
+
+							"indirizzo"
+
+							,
+
+							"piva"
+
+							,
+
+							"email"
+
+							,
+
+							"telefono"
+
+							,
+
+							"descrizione"
+
+							,
+
+							"prezzo"
+
+							,
+
+							"a-title"
+
+							,
+
+							"a-indirizzo"
+
+							,
+
+							"a-piva"
+
+							,
+
+							"a-email"
+
+							,
+
+							"c-title"
+
+							,
+
+							"c-indirizzo"
+
+							,
+
+							"c-piva"
+
+							,
+
+							"c-email"
+
+							,
+
+							"pagamenti"
+
+							,
+
+							"note"
+
+							,
+
+							"subtotale"
+
+							,
+
+							"creata"
+
+						]
+
+						,
+
+						onSelect : function( record ){
+
+							$( "input[data-group='" + group + "'][data-module='aggiungi']" ).val( "" );
+
+							setGroup( group, record );
+							
+						}
+
+					} );
+					
+				};
+				
+			// --> Setta i codici, funzione diversa dalle altre
+
+				var setCOD = function( record ){
+
+					return new Promise( function( resolve, reject ){
+
+						var id = record[ "#" ];
+
+						if( isNaN( id ) || id < 0 )return reject();
+
+						if( $( "tr[data-id='" + id + "']" ).length > 0 ){
+
+							alert( "Hai già inserito questo codice, se hai bisogno aumenta il 'QT'" );
+
+							return reject();
+
+						}
+
+					// --> Devo aggiungere un nuovo <tr>
+
+						var 
+
+						$newlistcod = $( "<tr data-id='" + id + "' class='top aligned'></tr>" )
+
+						,newitemlist = [
+
+							"<td data-group='COD' data-item='title' data-id='" + id + "' contenteditable='true' hidden>" + record[ "title" ] + "</td>"
+
+							,
+
+							"<td data-group='COD' data-item='unique' data-id='" + id + "'>" + record[ "unique" ] + "</td>"
+
+							,
+
+							"<td data-group='COD' data-ref='qt' data-id='" + id + "' contenteditable='true'>1</td>"
+
+							,
+
+							
+							"<td data-group='COD' data-item='descrizione' data-id='" + id + "' contenteditable='true'>" + record[ "descrizione" ] + "</td>"
+
+							,
+
+							
+							"<td data-group='COD' data-ref='prezzo' data-item='prezzo' data-id='" + id + "' contenteditable='true'>" + record[ "prezzo" ] + "</td>"
+
+							,
+
+							
+							"<td data-group='COD' data-ref='totale' data-id='" + id + "' contenteditable='true'></td>"
+
+						].join();
+						
+						;
+
+						$newlistcod.html( newitemlist );
+
+						$( "[data-list='COD']" ).append( $newlistcod );
+
+					// --> Aggiunto dinamicamente quindi devo aggiornare leventi
+
+						$( "tr[data-id='" + id + "']" ).bind( "click", function( event ){
+
+							if( !cntrlIsPressed ){
+							
+								$( "tr" ).removeClass( "selected" );
+							
+							}else{
+								
+								$( this ).toggleClass( "selected" );
+								
+							}
+
+							event.stopPropagation();
+
+							return false;
+
+						} );
+					
+						$( "[data-group='COD'][data-item='unique'][data-id='" + id + "']" )
+
+						.bind( "click", function(){
+
+							$( this ).closest( "tr" ).remove();
+
+						} );
+
+						$( "[data-group='COD'][data-item][data-id='" + id + "']" )
+
+						.bind( "input", function( event ){
+							
+							at( clearTimeout( THREADS[ "COD" ] ) );
+							
+						// --> Prelevo il record da salvare e aggiorno
+							
+							THREADS[ "COD" ] = setTimeout( function(){
+								
+								getCOD( id ).then( function resolve( record ){
+								
+									F.update( "COD", record ).then( function resolve( updates ){
+
+										if( !updates || updates.length < 1 ){
+
+											alert( "Il 'COD' può essere modificato ma deve essere univoco, puoi eliminarlo oppure puoi modificare la 'descrizione' e/o il 'prezzo'" );	
+
+											$( "[data-group='COD'][data-item='title'][data-id='" + id + "']" ).closest( "tr" ).remove();
+
+										}
+							
+									// --> Prelevo il record da salvare e aggiorno
+										
+										totalCOD( id );
+
+										subtotale();
+
+									}, function reject( reason ){
+
+										lol( "Problemi nel modificare i dati del 'COD'" );
+
+									} );
+
+								}, function reject( reason ){
+
+									lol( "Problemi nel prelevare i dati del 'COD' :\r\n" + reason );
+
+								} );
+								
+							}, TIMEOUTEDIT );
+									
+							event.stopPropagation();
+							
+						} );
+
+						$( "[data-group='COD'][data-ref='qt'][data-id='" + id + "']" )
+
+						.bind( "input", function( event ){
+
+							totalCOD( id );
+
+							subtotale();
+
+						} );
+
+
+						totalCOD( id );
+	
+						subtotale();
+
+						return resolve();
+
+					} );
+
+				};
+
+			// --> Restituisce un oggetto COD
+
+				var getCOD = function( id ){
+
+					return new Promise( function( resolve, reject ){
+						
+					// --> Iniziamo con i dati grezzi
+						
+						var 
+						
+						record = {}
+						
+						,$items = $( "[data-group='COD'][data-item][data-id='" + id + "']" )
+						
+						,$imgs  = $( "[data-group='COD'][data-img][data-id='" + id + "']" )
+						
+						;
+											
+						record[ "#" ] = id;
+						
+						record[ "imgs" ] = [];
+						
+					// --> Iniziamo con l'aggiungere gli items
+						
+						$.each( $items, function( i, item ){
+														
+							record[ $( item ).attr( "data-item" ) ] = escapeHTML( $( item ).text() ) || "";
+							
+						} );
+						
+					// --> Finiamo con le immagini
+						
+						$.each( $imgs, function( i, item ){
+													
+							var newimg = {};
+							
+							newimg[ $( item ).attr( "data-img" ) ] = $( item ).attr( "src" );
+							
+							record[ "imgs" ].push( newimg );
+							
+						} );
+
+						record[ "title" ] = record[ "unique" ];
+
+						return resolve( record );
+
+					} );
+
+				};
+
+			// --> Rimuove dalla tabella i COD selezionati
+
+				var removeCOD = function(){
+
+					lol( "Mi preparo per eliminare i codici" );
+					
+					var $selected = $( "tr.selected" );
+
+					if( $selected.length < 1 ){
+
+						alert( "Devi selezionare uno oppure più elementi con il tasto 'ctrl' premuto" );
+
+						return false;
+
+					}
+
+					if( confirm( "Attenzione, questa operazione elimina i COD dalla tabella, non dalla fattura, sei sicuro ?" ) ){
+
+					// --> Mi servono gli id
+
+						var ids = [];
+
+						$.each( $selected, function( i, selected ){
+
+							ids.push( parseInt( $( selected ).attr( "data-id" ) ) );
+
+						} );
+
+					// --> Rimuovo
+
+						F.remove( "COD", ids ).then( function resolve( removed ){
+
+							if( !removed || removed.length < 1 ){
+
+								alert( "Ci sono problemi nel processo di rimozione, uno o più con non sono stati eliminati : \r\n" + reason );
+
+							}
+
+						}, function reject( reason ){
+
+							alert( "Ci sono problemi nel processo di rimozione, uno o più con non sono stati eliminati : \r\n" + reason );
+							
+						} );
+
+					// --> Elimino comunque i tr
+
+						$selected.remove();
+
+					}
+
+				};
+
+			// --> Riempio i campi dei gruppi passati
+				
+				var setGroup = function( group, record ){		
+					
+					if( group === "COD" )return setCOD( record );
+
+					if( group === "FATTURE" )return setFattura( record );
+
+					return new Promise( function( resolve, reject ){
+						
+					// --> Se l'id non è un numero esco
+						
+						var id = parseInt( record[ "#" ] );
+						
+						if( isNaN( id ) && id !== -1 )return reject();
+												
+					// --> Il ciclo riempie per ordine i relativi campi
+						
+						$.each( record, function( keyitem, item ){
+							
+							if( typeof item === "string" ){
+								
+							// --> Semplice, nome di campo, html perché escaped
+								
+								$( "[data-group='" + group + "'][data-item='" + keyitem +"']" ).html( item );
+								
+							}else if( keyitem === "imgs" && Array.isArray( item ) ){
+								
+							// --> Immagini del gruppo
+								
+								$.each( item, function( i, img ){
+									
+								// --> Abbiamo un oggetto
+									
+									$.each( img, function( keyimg, src ){
+																				
+										if( typeof src === "string" ){
+										
+											$( "[data-group='" + group + "'][data-img='" + keyimg +"']" ).attr( "src", src );
+										
+										}
+										
+									} );
+									
+								} );
+								
+							}						
+							
+						} );
+						
+					// --> Appena finito setto il riferimento del gruppo appena riempito
+						
+						$( "#" + group ).attr( "data-value", id );
+						
+						if( group === "TASSE" )subtotale();
+
+					// --> Devo caricare le fatture per azienda
+
+						if( group === "AZIENDE" )loadMyFatture( id );
+
+						return resolve();
+						
+					} );
+					
+				};
+				
+			// --> Restituisce un oggetto con i dati ordinati
+				
+				var getGroup = function( group ){
+
+					return new Promise( function( resolve, reject ){
+						
+						var id = parseInt( $( "#" + group ).attr( "data-value" ) );
+						
+						if( isNaN( id ) )return reject();
+						
+					// --> Iniziamo con i dati grezzi
+						
+						var 
+						
+						record = {}
+						
+						,$items = $( "[data-group='" + group + "'][data-item]" )
+						
+						,$imgs  = $( "[data-group='" + group + "'][data-img]" )
+						
+						;
+											
+						record[ "#" ] = id;
+						
+						record[ "imgs" ] = [];
+						
+					// --> Iniziamo con l'aggiungere gli items
+						
+						$.each( $items, function( i, item ){
+														
+							record[ $( item ).attr( "data-item" ) ] = escapeHTML( $( item ).text() ) || "";
+							
+						} );
+						
+					// --> Finiamo con le immagini
+						
+						$.each( $imgs, function( i, item ){
+													
+							var newimg = {};
+							
+							newimg[ $( item ).attr( "data-img" ) ] = $( item ).attr( "src" );
+							
+							record[ "imgs" ].push( newimg );
+							
+						} );
+						
+						return resolve( record );
+						
+					} );
+					
+				};
+
+			// --> Restituisce i dati della fattura raggruppata
+
+				var getFattura = function(){
+
+					return new Promise( function( resolve, reject ){
+
+						var id = parseInt( $( "#FATTURE" ).attr( "data-value" ) );
+						
+						//if( isNaN( id ) )return reject();
+						
+					// --> Iniziamo con i dati grezzi
+						
+						var 
+						
+						record = {}
+						
+						,$items = $( "[data-fattura-item]" )
+
+						,$cods  = $( "[data-list='COD']" ).first().find( "tr" )
+						
+						,$imgs  = $( "[data-fattura-img]" )
+						
+						;
+											
+						//record[ "#" ] = id;
+
+						record[ "cods" ] = [];
+						
+						record[ "imgs" ] = [];
+						
+					// --> Iniziamo con l'aggiungere gli items
+						
+						$.each( $items, function( i, item ){
+														
+							record[ $( item ).attr( "data-fattura-item" ) ] = escapeHTML( $( item ).text() ) || "";
+							
+						} );
+
+					// --> I Codici
+						
+						$.each( $cods, function( i, cod ){
+														
+							var thiscod = {
+
+								"unique" : escapeHTML( $( cod ).find( "[data-item='unique']" ).first().text() ) || ""
+
+								,
+
+								"qt" : escapeHTML( $( cod ).find( "[data-ref='qt']" ).first().text() ) || ""
+
+								,
+
+								"descrizione" : escapeHTML( $( cod ).find( "[data-item='descrizione']" ).first().text() ) || ""
+
+								,
+
+								"prezzo" : escapeHTML( $( cod ).find( "[data-ref='prezzo']" ).first().text() ) || ""
+
+								,
+
+								"totale" : escapeHTML( $( cod ).find( "[data-ref='totale']" ).first().text() ) || ""
+
+							};
+
+							record[ "cods" ].push( thiscod );
+							
+						} );
+						
+					// --> Finiamo con le immagini
+						
+						$.each( $imgs, function( i, item ){
+													
+							var newimg = {};
+							
+							newimg[ $( item ).attr( "data-fattura-img" ) ] = $( item ).attr( "src" );
+							
+							record[ "imgs" ].push( newimg );
+							
+						} );
+
+						var idcreated = parseInt( $( "#AZIENDE" ).attr( "data-value" ) );
+
+						if( isNaN( idcreated ) || idcreated < 0 ){
+
+							reject();
+
+							return alert( "Non posso prelevare questa fattura !" );
+
+						}
+
+						record[ "idsigned" ] = idcreated;
+
+						record[ "creata" ] = new Date().toISOString().slice( 0, 10 ).replace( /\-/gi, "." );
+						
+						return resolve( record );
+
+					} );
+
+				};
+
+			// --> Riempio i campi dei gruppi passati
+				
+				var setFattura = function( record ){
+
+					return new Promise( function( resolve, reject ){
+						
+					// --> Se l'id non è un numero esco
+						
+						var id = parseInt( record[ "#" ] );
+						
+						if( isNaN( id ) && id !== -1 )return reject();
+
+					// --> Pulisco la lista
+
+						$( "[data-list='COD']" ).html( "" );
+
+					// --> Il ciclo riempie per ordine i relativi campi
+						
+						$.each( record, function( keyitem, item ){
+							
+							if( typeof item === "string" ){
+								
+							// --> Semplice, nome di campo, html perché escaped
+								
+								$( "[data-fattura-item='" + keyitem +"']" ).html( item );
+								
+							}else if( keyitem === "imgs" && Array.isArray( item ) ){
+								
+							// --> Immagini del gruppo
+								
+								$.each( item, function( i, img ){
+									
+								// --> Abbiamo un oggetto
+									
+									$.each( img, function( keyimg, src ){
+																				
+										if( typeof src === "string" ){
+										
+											$( "[data-fattura-img='" + keyimg +"']" ).attr( "src", src );
+										
+										}
+										
+									} );
+									
+								} );
+								
+							}else if( keyitem === "cods" && Array.isArray( item ) ){
+								
+							// --> Immagini del gruppo
+								
+								$.each( item, function( i, record ){
+									
+								// --> Abbiamo un oggetto
+									
+									var id = -1
+								
+										,$newlistcod = $( "<tr data-id='" + id + "' class='top aligned'></tr>" )
+
+										,newitemlist = [
+
+											"<td data-group='COD' data-item='title' data-id='" + id + "' contenteditable='true' hidden>" + record[ "title" ] + "</td>"
+
+											,
+
+											"<td data-group='COD' data-item='unique' data-id='" + id + "'>" + record[ "unique" ] + "</td>"
+
+											,
+
+											"<td data-group='COD' data-ref='qt' data-id='" + id + "' contenteditable='true'>1</td>"
+
+											,
+
+											
+											"<td data-group='COD' data-item='descrizione' data-id='" + id + "' contenteditable='true'>" + record[ "descrizione" ] + "</td>"
+
+											,
+
+											
+											"<td data-group='COD' data-ref='prezzo' data-item='prezzo' data-id='" + id + "' contenteditable='true'>" + record[ "prezzo" ] + "</td>"
+
+											,
+
+											
+											"<td data-group='COD' data-ref='totale' data-id='" + id + "' contenteditable='true'>" + record[ "totale" ] + "</td>"
+
+										].join();
+										
+										;
+
+									$newlistcod.html( newitemlist );
+
+									$( "[data-list='COD']" ).append( $newlistcod );
+									
+								} );
+								
+							}						
+							
+						} );					
+											
+					// --> Per sicurezza resetto tutti gli id a -3
+
+						$( "[data-value]" ).attr( "data-value", -3 );
+
+						$( "[data-id]" ).attr( "data-id", -3 );
+						
+					// --> Appena finito setto il riferimento del gruppo appena riempito
+						
+						$( "#FATTURE" )
+
+						.attr( "data-value", id )
+
+						.attr( "data-fattura-idsign", record[ "idsigned" ] );
+
+						return resolve();
+						
+					} );
+					
+				};
+
+			// --> Esporta e importa tabelle
+
+				var exportAllTable = function( tablename ){
+
+					var thistable = ( typeof tablename !== "string" ) ? null : F.name + ":" + tablename
+
+						,resolve  = function( myexport ){
+						
+							if( !myexport )return alert( "Il database è vuoto" );
+							
+							if( thistable !== null ){
+
+								var tables = JSON.parse( myexport )
+
+									,finded = false;
+
+								$.each( tables, function( i, table ){
+
+								// --> Ho un oggetto ma devo controllare il nome
+
+									if( table[ thistable ] ){
+
+										myexport = JSON.stringify( [ table ] );
+
+										finded = true;
+
+										return false;
+
+									}
+
+								} );
+
+								if( !finded )return alert( "Non ho trovato questa tabella !" );
+
+							}
+
+							var blob 	  = new Blob( [ myexport ], { type: "text/plain" } )
+
+								,filename = ( !thistable ) 
+											? "FATTY.DB." + new Date().toISOString().slice( 0, 10 ).replace( /\-/gi, "." ) + ".json"
+											: "FATTY." + tablename.replace( /\:/gi, "." ) + "." + new Date().toISOString().slice( 0, 10 ).replace( /\-/gi, "." ) + ".json"
+											;
+
+							saveAs( blob, filename );
+							
+						}
+					
+						,reject = function( reason ){
+							
+							alert( "Problemi nell'esportare il db" );
+							
+						}
+
+						;
+					
+					F.export().then( resolve, reject );
+					
+				};
+				
+			// --> Questa funczione perché le tabelle frammentate devono essere decrittate, si rischia la confusione
+
+				var exportThisTable = function( tablename ){
+					
+					var resolve = function( myexport ){
+						
+						if( !myexport )return alert( "Il database è vuoto" );
+					
+						var blob = new Blob( [ myexport ], { type: "text/plain" } );
+
+						saveAs( blob, "FATTY." + tablename + "." + new Date().toISOString().slice( 0, 10 ).replace( /\-/gi, "." ) + ".json" );
+						
+					};
+					
+					resolve( JSON.stringify( F.getTable( tablename ) ) );
+					
+				};
+
+				var importAllTable = function( event ){
+					
+					var input = event.target;
+
+					var reader = new FileReader();
+					
+					reader.onload = function(){
+						
+						var resolve = function( value ){
+
+							alert( "Database caricato con successo !" );
+
+							return location.reload();
+														
+						}
+						
+						,reject = function( reason ){
+							
+							alert( reason );
+							
+						};		
+
+						F.import( reader.result ).then( resolve, reject );
+						
+					};
+
+					reader.readAsText( input.files[ 0 ] );
+					
+				};
+
+		/// --> ° Punto d'ingresso
+				
+			// --> Generico, autorizzo le popup e dispongo le azioni che questi devono compiere
+				
+				$.each( GROUPS, function( i, group ){
+
+				// --> Riempio i gruppi di default
+				
+					setGroup( group, DEFAULTS[ group ] );
+					  
+				// --> Evento popup
+
+					$( "[data-group='" + group + "'][data-module='showme']" ).popup( {
+
+						popup : $( "." + group + ".popup")
+
+						,
+
+						exclusive : true
+
+						,
+
+						inline : true
+
+						,
+
+						on : "manual"
+
+						,
+
+						position   : POSITION[ group ]
+
+						,
+
+						delay	   : {
+
+							show : 300
+
+							,
+
+							hide : 700
+
+						}
+
+						,
+
+						onShow : function(){
+
+						// --> Resetto i campi, il riferimento 'group' potrebbe non funzionare
+
+							$( "input[data-group='" + group + "'][data-module='cerca']" ).val( "" );
+							$( "input[data-group='" + group + "'][data-module='aggiungi']" ).val( "" );
+							
+						}
+
+					} );
+
+					$( "[data-group='" + group + "'][data-module='showme']" ).click( function(){
+
+						if( $( "[data-group='" + group + "'][data-module='showme']" ).popup( "is visible" ) ){
+
+							$( "[data-group='" + group + "'][data-module='showme']" ).popup( "hide" );
+
+						}else{
+
+							$( "[data-group='" + group + "'][data-module='showme']" ).popup( "show" );
+
+						}
+
+					} );
+
+				// --> I pulsanti, iniziamo con l'elimina
+
+					$( "button[data-group='" + group + "'][data-module='rimuovi']" ).click( function( event ){
+
+						if( group === "COD" )return removeCOD();
+
+						var id = parseInt( $( "#" + group ).attr( "data-value" ) );
+						
+						lol( "id : " + id + " / group : " + group );
+						
+						if( isNaN( id ) || id < 0 )return false;
+						
+						if( group === "FATTURE" && !confirm( "ATTENZIONE :\r\nLa fattura una volta eliminata non può essere recuperata.\r\nSei sicuro ?" ) ){
+
+							return false;
+
+						}else if( group === "AZIENDE" && !confirm( "ATTENZIONE :\r\nInsieme a questa azienda verranno eliminate anche tutte le fatture collegate.\r\nSei sicuro ?" ) ){
+
+							return false;
+
+						}else if( !confirm( "Sei sicuro ?" ) ){
+
+							return false;
+
+						}
+
+					// --> Rimuovo
+
+						if( group === "FATTURE" ){
+
+							var idcreated = parseInt( $( "#FATTURE" ).attr( "data-fattura-idsign" ) );
+
+							if( isNaN( idcreated ) || idcreated < 0 )return alert( "Non posso rimuovere questa fattura !" );
+
+							group = "FATTURE" + idcreated; 	
+
+						}
+
+						F.remove( group, id ).then( function resolve( removed ){
+
+							if( !removed || removed.length < 1)return alert( "Problemi in fase di rimozione !" );
+
+							if( group.match( new RegExp( "^" + "FATTURE", "g" ) ) )return location.reload();
+
+							if( group === "AZIENDE" ){
+
+							// --> Devo cancellare le fatture collegate
+
+								F.clear( F.name + ":FATTURE" + id );
+
+							}
+
+						// --> Carico i valori di default
+							
+							setGroup( group, DEFAULTS[ group ] ).then( function resolve(){
+
+								lol( "Gruppo aggiornato !" );
+
+							}, function reject( reason ){
+
+								lol( "Problemi nel settare il '" + group + "' : \r\n" + reason );
+
+							} );
+
+							lol( "Item rimosso di '" + group + "'" );
+
+						}, function reject( reason ){
+
+							alert( "Non riesco a rimuovere questo item : \r\n" + reason );
+
+						} );
+
+						event.stopPropagation();
+
+					} );
+
+				// --> Importa ed esporta tabella
+
+					if( group !== "FATTURE" ){
+
+						$( "button[data-group='" + group + "'][data-module='export']" ).click( function(){
+
+							exportAllTable( group );
+
+						} );
+
+						$( "button[data-group='" + group + "'][data-module='import']" ).click( function(){
+
+							var optional = ( group === "AZIENDE" ) ? ", in oltre verranno cancellate tutte le fatture, prima di qualsiasi operazione ti consigio di effettuare un backup di tutto il database" : "";
+
+							if( !confirm( "Questa procedura potrebbe sovrascrivere tutta la tabella '" + group + "' esistente" + optional + ".\r\nSei sicuro ?" ) )return false;
+								
+							$( "#import" ).trigger( "click" );
+
+						} );
+
+					}
+
+				// --> 
+				
+					$( "input[data-group='" + group + "'][data-module='aggiungi']" ).on( "keyup", function( event ){
+						
+						if( event.which == 13 || event.keyCode == 13 ){
+							
+							$( "input[data-group='" + group + "'][data-module='cerca']" ).val( "" );
+
+							var newtitle = $( this ).val() || "";
+							
+							newtitle = newtitle.trim();
+							
+							if( !newtitle || newtitle == "" )return false;
+							
+							newtitle = escapeHTML( newtitle );
+							
+							$( this ).val( "" );
+							
+						// --> Aggiungo un nuovo cliente, clono il default
+							
+							var newrecord = $.extend( {}, DEFAULTS[ group ] );
+							
+							newrecord[ "title" ] = newtitle;
+							
+						// --> Se è un codice lo voglio univoco
+
+							if( group === "COD" )newrecord[ "unique" ] = newtitle;
+
+							F.add( group, newrecord ).then( function resolve( updated ){
+								
+								if( !updated || updated.length === 0 )return alert( "Questo valore esiste già e deve essere univoco !" );
+								
+							// --> Inizializzo i dati
+								
+								var record = updated[ 0 ];
+								
+								setGroup( group, record ).then( function resolve(){
+									
+									lol( "Aggiunto un nuovo item e pronto per la modifica" );
+									
+								}, function reject( reason ){
+									
+									alert( "Non riesco a settare l'item : \r\n" + reason );
+									
+								} );
+							
+							}, function reject( reason ){
+								
+								alert( "Problemi nel processo di aggiunta :\r\n" + reason );
+								
+							} );
+							
+							return false;
+						
+						}
+						
+					} );
+				
+				// --> Appendo gli eventi, iniziamo con le modifiche
+									
+					$( "[data-group='" + group + "'][data-item]" ).on( "input", function( event ){
+						
+					// --> Se l'id < 0 esco
+						
+						var id = ( group === "COD" ) 
+								 ? parseInt( $( this ).attr( "data-id" ) )
+								 : parseInt( $( "#" + group ).attr( "data-value" ) )
+								 ; 
+						
+						if( group === "TASSE" )subtotale();
+
+						if( isNaN( id ) || id < 0 )return false;
+						
+						at( clearTimeout( THREADS[ group ] ) );
+						
+					// --> Prelevo il record da salvare e aggiorno
+						
+						THREADS[ group ] = setTimeout( function(){
+							
+							if( group === "COD" )return false;
+
+							getGroup( group ).then( function resolve( record ){
+							
+								F.update( group, record ).then( function resolve( updates ){
+
+									lol( "Record del '" + group + "' aggiornato" );
+
+								}, function reject( reason ){
+
+									lol( "Problemi nel modificare i dati del '" + group + "'" );
+
+								} );
+
+							}, function reject( reason ){
+
+								lol( "Problemi nel prelevare i dati del '" + group + "' :\r\n" + reason );
+
+							} );
+							
+						}, TIMEOUTEDIT );
+								
+						event.stopPropagation();
+						
+					} );
+				
+				// --> Le immagini dei gruppi
+
+					$( "[data-group='" + group + "'][data-img]" ).click( function(){
+
+						var newimg = prompt( "Inserisci l'indirizzo della nuova immagine, anche 'file://' o 'base64'" ) || "";
+
+						newimg = newimg.trim();
+
+						if( newimg === "" )return false;	
+
+						$( this ).attr( "src", newimg );
+
+						$( "[data-group='" + group + "'][data-item]" ).trigger( "input" );
+
+						event.stopPropagation();
+
+					} );
+
+				// --> Inizializzo le ricerche
+					
+					updateSearch( group, F.getTable( group ) );
+						   
+				} );
+
+			// --> Eventi personalizzati, ad esempio le fatture
+
+				$( "button[data-group='GLOBAL'][data-module='export']" ).click( exportAllTable );
+
+				$( "button[data-group='GLOBAL'][data-module='import']" ).click( function(){
+
+					if( !confirm( "Questa procedura potrebbe sovrascrivere tutte le tabelle esistenti di tutto il database '" + F.name + "'.\r\nSei sicuro ?" ) )return false;
+
+					$( "#import" ).trigger( "click" );
+
+				} );
+
+				$( "button[data-group='GLOBAL'][data-module='github']" ).click( function(){
+
+					window.open( github );
+
+				} );
+
+				$( "button[data-group='GLOBAL'][data-module='donate']" ).click( function(){
+
+					window.open( donate );
+
+				} );
+
+				$( "button[data-group='GLOBAL'][data-module='youtube']" ).click( function(){
+
+					window.open( youtube );
+
+				} );
+
+				$( "button[data-group='GLOBAL'][data-module='print']" ).click( function(){
+
+					setTimeout( function(){
+
+						window.print();
+
+					} ,500 );
+
+					$( ".tohide" ).removeClass( "forced" ).addClass( "forced" );
+
+				} );
+
+				$( "#import" ).change( importAllTable );
+
+				$( "button[data-group='FATTURE'][data-module='plus']" ).click( function( event ){
+
+					var signature = parseInt( $( "#AZIENDE" ).attr( "data-value" ) );
+
+					if( isNaN( signature ) || signature < 0 ){
+
+						alert( "Non posso aggiungere una fattura senza un'azienda emittente, oppure stai tentando di salvare una fattura già salvata, se vuoi clonare questa fattura con un altro numero progressivo e la data attuale devi caricare di nuovo l'azienda ( o un'altra emittente ) e poi salvare la fattura !" );
+
+						return false;
+
+					}
+						
+					var cliente = parseInt( $( "#CLIENTI" ).attr( "data-value" ) );
+
+					if( isNaN( cliente ) || cliente < 0 ){
+
+						alert( "Seleziona o aggiungi un cliente alla fattura, se stai tentando di clonare una fattura esistente allora ti basterà ricaricare il cliente !" );
+
+						return false;
+
+					}
+
+					if( !confirm( "ATTENZIONE :\r\nLa fattura una volta salvata non può essere modificata.\r\nPotrai eliminarla ma considera il numero progressivo, sarà sempre +1 dell'ultima salvata, sei sicuro ?" ) )return false;
+
+					lol( "Prelevo la fattura" );
+
+					var group = "FATTURE";
+
+					$( "input[data-group='" + group + "'][data-module='cerca']" ).val( "" );
+
+					getFattura().then( function resolve( newrecord ){
+
+					// --> Assicuro che il title e l'unique siano resettati
+
+						newrecord[ "title" ] = "";
+
+						newrecord[ "unique" ] = "";
+
+					// --> Aggiungo la nuova fattura
+
+						F.add( group + signature, newrecord ).then( function resolve( added ){
+							
+							if( !added || added.length === 0 )return alert( "Questa fattura esiste già e deve essere univoco !" );
+							
+							var thisrecord = ( Array.isArray( added ) ) ? added[ 0 ] : added;
+
+						// --> Devo modificare alcuni dati, quindi aggiornare
+
+							thisrecord[ "unique" ] = "Fattura " + ( thisrecord[ "#" ] + 1 );
+
+							thisrecord[ "title" ] = "Fattura " + ( thisrecord[ "#" ] + 1 );
+
+							F.update( group + signature, thisrecord ).then( function resolve( updated ){
+
+								if( !updated || updated.length === 0 )return alert( "Fattura aggiunta ma non riesco a settare 'unique' !" );
+
+								alert( "Fattura aggiunta con successo !" );
+
+								return location.reload();
+
+							}, function reject( reason ){
+
+								alert( "Problemi nel processo di aggiunta :\r\n" + reason );
+
+							} );						
+							
+						}, function reject( reason ){
+							
+							alert( "Problemi nel processo di aggiunta :\r\n" + reason );
+							
+						} );
+
+					}, function reject( reason ){
+
+						lol( reason );
+
+					} );
+					
+					return false;
+					
+				} );
+
+			// --> Inizializzo la data della fattura
+
+				$( "[data-fattura-item='creata']" ).text( new Date().toISOString().slice( 0, 10 ).replace( /\-/gi, "." ) );
+
+			// --> Ad ogni cambiamento della tabella aggiorno il totale
+
+				var toobserv = document.getElementById( "CODLIST" )
+
+				,observer = new MutationObserver( function( mutations ){
+
+					subtotale();
+					
+					lol( "Mutazioni di COD" );
+
+				} );
+
+				var config = { attributes: true, childList: true, characterData: true };
+
+				observer.observe( toobserv, config );
+
+			// --> Alcune correzioni grafiche
+
+				setInterval( function(){
+
+					$( ".icon.heart")
+
+					.transition( {
+
+						animation : "jiggle"
+
+						,
+					    
+					    duration  : 800
+
+					    ,
+					    
+					    interval  : 200
+					  
+					} );
+
+				}, TIMEOUTSPOT );
+
+				$( "[data-content]" ).popup( {
+				
+					inline     : true,
+					position   : "top center"
+
+				} );
+
+			// --> In fine
+				
+				window.onload = function(){
+
+				// --> Carico una azienda azienda
+
+					var myaziende = F.getTable( "AZIENDE" );
+
+					if( myaziende && myaziende.length > 0 ){
+
+						setGroup( "AZIENDE", myaziende[ myaziende.length -1 ] );
+
+					}
+
+					$( "#MAIN" ).transition( {
+
+						animation : "fade down"
+
+						,
+
+						onComplete : function(){
+
+							$( ".tohide" ).removeClass( "this" );
+
+							$( ".centerthisleft" ).each( function( i, item ){
+
+								var marginleft = "-" + ( $( item ).width() / 2 ) + "px";
+
+								$( item ).css( "margin-left", marginleft );
+
+							} );
+
+							$( ".centerthisbottom" ).each( function( i, item ){
+
+								var marginbottom = "-" + ( $( item ).height() / 2 ) + "px";
+
+								$( item ).css( "margin-bottom", marginbottom );
+
+							} );
+
+							$( ".middleme" ).each( function( i, item ){
+
+								var left = ( $( item ).parent().width() / 2 ) + "px";
+
+								$( item ).css( "left", left );
+
+							} );
+
+						}
+
+					} );
+
+				};
+
+			} )( window.jQuery, window.Promise, window.localdb );
+
+		</script>
+
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
