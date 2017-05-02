@@ -1275,6 +1275,16 @@
 				
 				var updateSearch = function( group, source ){
 					
+				// --> Devo invertire l'ordine, dal più nuovo
+
+					if( !source )source = [];
+
+					source.sort( function( a, b ){
+
+						return ( b[ "#" ] - a[ "#" ] );
+
+					} );
+
 					$( "." + group + ".search" ).search( {
 
 						error : {
