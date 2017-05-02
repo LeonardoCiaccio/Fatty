@@ -2020,8 +2020,8 @@
 							var blob 	  = new Blob( [ myexport ], { type: "text/plain" } )
 
 								,filename = ( !thistable ) 
-											? "FATTY.DB." + new Date().toISOString().slice( 0, 10 ).replace( /\-/gi, "." ) + ".json"
-											: "FATTY." + tablename.replace( /\:/gi, "." ) + "." + new Date().toISOString().slice( 0, 10 ).replace( /\-/gi, "." ) + ".json"
+											? F.name + ".DB." + new Date().toISOString().slice( 0, 10 ).replace( /\-/gi, "." ) + ".json"
+											: F.name + "." + tablename.replace( /\:/gi, "." ) + "." + new Date().toISOString().slice( 0, 10 ).replace( /\-/gi, "." ) + ".json"
 											;
 
 							saveAs( blob, filename );
@@ -2050,7 +2050,7 @@
 					
 						var blob = new Blob( [ myexport ], { type: "text/plain" } );
 
-						saveAs( blob, "FATTY." + tablename + "." + new Date().toISOString().slice( 0, 10 ).replace( /\-/gi, "." ) + ".json" );
+						saveAs( blob, F.name + "." + tablename + "." + new Date().toISOString().slice( 0, 10 ).replace( /\-/gi, "." ) + ".json" );
 						
 					};
 					
